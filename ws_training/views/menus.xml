@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <menuitem name="培训管理"
+                  id="menu_ws_training_root"
+                  sequence="20"/>
+
+        <menuitem name="培训"
+                  id="menu_training_mgr"
+                  parent="menu_ws_training_root"
+                  sequence="10"
+                />
+
+        <menuitem name="培训签到"
+                  id="menu_ws_training_attend"
+                  parent="menu_training_mgr"
+                  sequence="10"
+                  action="action_ws_training_list"
+                />
+
+        <menuitem name="培训课程"
+                  id="menu_ws_training_course"
+                  parent="menu_training_mgr"
+                  sequence="20"
+                  action="action_ws_training_course_list"
+                />
+         <menuitem name="培训签到统计分析"
+                  id="menu_ws_training_report"
+                  parent="menu_training_mgr"
+                  sequence="30"
+                  action="action_report_ws_training_all"
+                />
+    </data>
+</odoo>
