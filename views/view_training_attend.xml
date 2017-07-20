@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ws_training_list" model="ir.ui.view">
+            <field name="name">培训签到列表</field>
+            <field name="model">ws.training.attend</field>
+            <field name="arch" type="xml">
+                <tree string="培训签到列表">
+                    <field name="user_id"/>
+                    <field name="course_id"/>
+                    <field name="attend_time"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ws_training_form" model="ir.ui.view">
+            <field name="name">培训签到详情</field>
+            <field name="model">ws.training.attend</field>
+            <field name="arch" type="xml">
+                <form string="培训签到">
+                    <sheet>
+                        <group>
+                                <field name="user_id"/>
+                                <field name="course_id"/>
+                                <field name="attend_time"/>
+                                <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ws_training_list" model="ir.actions.act_window">
+            <field name="name">培训签到</field>
+            <field name="res_model">ws.training.attend</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="ws_training_list"/>
+            <field name="help" type="html">
+                <p>
+                    签到内容填写
+                    </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<div class="pages">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="link" onclick="onBack()">
+                    <i class="icon icon-back"></i>
+                    <span>返回</span>
+                </a>
+            </div>
+            <div class="center sliding" id="">课程明细</div>
+        </div>
+    </div>
+    <div data-page="index" class="page">
+        <div class="page-content">
+            <div class="list-block">
+                <ul>
+                    {% for sup in data.sup_task_list %}
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">{{ sup.sup_name}}</div>
+                                <div class="item-input">
+                                    <input id="{{ sup.id}}" name="{{ sup.sup_name}}" type="text"
+                                           placeholder="{{ sup.name}}" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor%}
+                </ul>
+            </div>
+            <div style="width: 100%; height: auto;">
+                <div class="content-block-title">任务描述</div>
+                <textarea id="sup_main_task" placeholder="{{data.this_description}}"
+                          style="width: 93%; min-height: 60px;outline: none;padding-left: 15px;padding-right: 15px;border-style:none;font-size: larger;"></textarea>
+            </div>
+            <div style="padding: 15px;margin-bottom: 15px;">
+                <a href="#" class="button button-big button-fill" onclick="onSubmit({{data.user_id}}, {{data.course_id}})">签到 </a>
+            </div>
+        </div>
+    </div>
+</div>
