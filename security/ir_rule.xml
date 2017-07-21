@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="training_attend_mind_own_course" model="ir.rule">
+        <field name="name">讲师：可见自己的课程</field>
+        <field name="model_id" ref="model_ws_training_course"/>
+        <field name="groups" eval="[(4, ref('group_training_attend_teacher'))]"/>
+        <field name="domain_force">[('teacher_id', '=', user.id)]</field>
+    </record>
+
+    <record id="training_attend_mind_all_course" model="ir.rule">
+        <field name="name">学员：可见全部课程</field>
+        <field name="model_id" ref="model_ws_training_course"/>
+        <field name="groups" eval="[(4, ref('group_training_attend_user'))]"/>
+        <field name="domain_force">[('course_user_id.user_id', '=', user.id)]</field>
+    </record>
+
+    <record id="training_attend_mind_own_course_attend" model="ir.rule">
+        <field name="name">讲师：可见自己课程的签到记录</field>
+        <field name="model_id" ref="model_ws_training_attend"/>
+        <field name="groups" eval="[(4,ref('group_training_attend_teacher'))]"/>
+        <field name="domain_force">[('course_id.teacher_id', '=', user.id)]</field>
+    </record>
+
+    <record id="training_attend_mind_own_attend" model="ir.rule">
+        <field name="name">学员：可见自己的签到记录</field>
+        <field name="model_id" ref="model_ws_training_attend"/>
+        <field name="groups" eval="[(4,ref('group_training_attend_user'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+
+    <!--<record id="training_attend_mind_own_class" model="ir.rule">-->
+        <!--<field name="name">学员：可见自己所在的班</field>-->
+        <!--<field name="model_id" ref="model_ws_training_class"/>-->
+        <!--<field name="groups" eval="[(4,ref('group_training_attend_user'))]"/>-->
+        <!--<field name="domain_force">[([6,7], 'in', 7)]</field>-->
+    <!--</record>-->
+
+    <!--<record id="training_attend_mind_own_class_member" model="ir.rule">-->
+        <!--<field name="name">学员：可见自己所在班的成员</field>-->
+        <!--<field name="model_id" ref="model_ws_training_class_users"/>-->
+        <!--<field name="groups" eval="[(4,ref('group_training_attend_user'))]"/>-->
+        <!--<field name="domain_force">[('class_id', '=', '2017温氏信息中心夏令营')]</field>-->
+    <!--</record>-->
+
+
+    <data noupdate="1">
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_training_attend_manager'))]"/>
+        </record>
+    </data>
+</odoo>

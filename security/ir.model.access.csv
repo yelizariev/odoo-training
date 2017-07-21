@@ -1,0 +1,16 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_course_manager,"access course manager",model_ws_training_course,group_training_attend_manager,1,1,1,1
+access_course_comment_manager,"access course comment manager",model_ws_training_course_comment,group_training_attend_manager,1,1,1,1
+access_attend_manager,"access attend manager",model_ws_training_attend,group_training_attend_manager,1,1,1,1
+access_class_manager,"access class manager",model_ws_training_class,group_training_attend_manager,1,1,1,1
+access_class_users_manager,"access class users manager",model_ws_training_class_users,group_training_attend_manager,1,1,1,1
+access_course_teacher,"access course teacher",model_ws_training_course,group_training_attend_teacher,1,1,0,0
+access_course_comment_teacher,"access course comment teacher",model_ws_training_course_comment,group_training_attend_teacher,1,0,0,0
+access_attend_teacher,"access attend teacher",model_ws_training_attend,group_training_attend_teacher,1,1,0,0
+access_class_teacher,"access class teacher",model_ws_training_class,group_training_attend_teacher,1,0,0,0
+access_class_users_teacher,"access class users teacher",model_ws_training_class_users,group_training_attend_teacher,1,0,0,0
+access_course_user,"access course user",model_ws_training_course,group_training_attend_user,1,0,0,0
+access_course_comment_user,"access course comment user",model_ws_training_course_comment,group_training_attend_user,1,0,0,0
+access_attend_user,"access attend user",model_ws_training_attend,group_training_attend_user,1,0,0,0
+access_class_user,"access class user",model_ws_training_class,group_training_attend_user,1,0,0,0
+access_class_users_user,"access class users user",model_ws_training_class_users,group_training_attend_user,1,0,0,0

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_training_attend_category" model="ir.module.category">
+        <field name="name">培训签到分组</field>
+        <field name="description">分为跟管理员、讲师和学员三个组</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="group_training_attend_teacher" model="res.groups">
+        <field name="name">讲师</field>
+        <field name="category_id" ref="module_training_attend_category"/>
+    </record>
+
+    <record id="group_training_attend_user" model="res.groups">
+        <field name="name">学员</field>
+        <field name="category_id" ref="module_training_attend_category"/>
+    </record>
+
+    <record id="group_training_attend_manager" model="res.groups">
+        <field name="name">管理员</field>
+        <field name="category_id" ref="module_training_attend_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_training_attend_teacher', 'group_training_attend_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/> <!--把admin用户加入该组中-->
+    </record>
+</odoo>

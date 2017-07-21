@@ -19,6 +19,9 @@
         'views/view_training_class.xml',
         'views/view_training_class_users.xml',
         'views/view_training_comment.xml',
+        'security/groups.xml',
+        'security/ir.model.access.csv',
+        'security/ir_rule.xml',
         'views/menus.xml',
     ],
     'demo': [

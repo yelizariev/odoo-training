@@ -20,3 +20,33 @@
     display: block;
     float:right;
 }
+
+.course_image {
+    margin: 20px;
+    margin-bottom: 0;
+    width:150px;
+}
+
+.oe_button_box {
+    margin: 20px;
+}
+
+.oe_title {
+    margin-left: 100px;
+}
+
+.username {
+    display: inline-block;
+    text-indent: 5px;
+    letter-spacing: 1px;
+}
+
+.distable {
+    display: table;
+    width: 100%;
+}
+
+.distablecell {
+    width: 50%;
+    display: table-cell;
+}

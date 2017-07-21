@@ -19,26 +19,50 @@
             </field>
         </record>
 
+         <!--<sheet>-->
+                        <!--<field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;image_medium&quot;}"/>-->
+                        <!--<div class="oe_title">-->
+                            <!--<label for="name" class="oe_edit_only"/>-->
+                            <!--<h1>-->
+                                <!--<field name="name" placeholder="Employee's Name"/>-->
+                            <!--</h1>-->
+                        <!--</div>-->
+                        <!--<field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time" options="{'no_create_edit': True}" groups="hr.group_hr_user"/>-->
+         <!--</sheet>-->
+
         <record id="ws_training_class_users_form" model="ir.ui.view">
             <field name="name">班级学员详情</field>
             <field name="model">ws.training.class.users</field>
             <field name="arch" type="xml">
                 <form string="班级学员">
                     <sheet>
-                        <group>
-                            <field name="user_image" widget="image"/>
-                        </group>
-                        <group>
-                            <group string="基本信息">
-                                <field name="class_id"/>
-                                <field name="user_id"/>
-                            </group>
-                            <group string="联系方式">
-                                <field name="user_email"/>
-                                <field name="user_mobile"/>
-                                <field name="user_address"/>
-                            </group>
-                        </group>
+                        <div class="distable">
+                            <div class="distablecell">
+                                <div class="course_image">
+                                    <field name="user_image" widget="image" class="oe_avatar" />
+                                    <!--<field name="user_image" widget="image"/>-->
+                                </div>
+                                <div class="oe_title">
+                                    <h1>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <div class="username">
+                                            <field name="user_id" placeholder="学员姓名"/>
+                                        </div>
+                                    </h1>
+                                    <h2>
+                                        <field name="class_id"/>
+                                    </h2>
+                                </div>
+                            </div>
+                            <!--<field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time" options="{'no_create_edit': True}" groups="hr.group_hr_user"/>-->
+                            <div class="distablecell">
+                                <group string="联系方式">
+                                    <field name="user_email"/>
+                                    <field name="user_mobile"/>
+                                    <field name="user_address"/>
+                                </group>
+                            </div>
+                        </div>
                         <notebook>
                             <page string="课程信息">
                                 <field name="course_id">

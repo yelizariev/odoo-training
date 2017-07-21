@@ -80,7 +80,9 @@
                                 </div>
                             </button>
                         </div>
-                        <field name="image_course" widget="image"/>
+                        <div class="course_image">
+                            <field name="image_course" widget="image"/>
+                        </div>
                         <group>
                             <group string="基本信息">
                                 <field name="name"/>
