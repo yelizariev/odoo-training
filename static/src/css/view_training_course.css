@@ -11,3 +11,12 @@
 .btnlabel {
     font-size: 15px;
 }
+
+.user_class {
+    float: right;
+}
+
+.user_mobile {
+    display: block;
+    float:right;
+}

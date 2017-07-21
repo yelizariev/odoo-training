@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+         <template id="ws_training_course_backend" name="ws_training_course_css" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/ws_training/static/src/css/view_training_course.css"/>
+                <!--<script type="text/JavaScript" src="/you_module_name/static/src/js/you_module_name.js"></script>-->
+            </xpath>
+        </template>
         <record id="ws_training_class_users_list" model="ir.ui.view">
             <field name="name">班级学员列表</field>
             <field name="model">ws.training.class.users</field>
@@ -29,6 +35,10 @@
                                     <field name="teacher_id"/>
                                 </tree>
                             </field>
+                            <field name="user_email"/>
+                            <field name="user_mobile"/>
+                            <field name="user_address"/>
+                            <field name="user_image"/>
                         </group>
                     </sheet>
                 </form>
@@ -59,13 +69,15 @@
                             <div class="oe_kanban_details">
                                 <strong>
                                     <field name="user_id"/>
+                                    <label class="user_class"><i class="fa fa-bookmark" aria-hidden="true"></i></label>
                                 </strong>
                                 <ul>
                                     <li id="last_login"/>
-                                    <li t-if="record.class_id.value"><field name="class_id"/></li>
                                     <li t-if="record.user_address.value"><field name="user_address"/></li>
                                     <li t-if="record.user_email.value"><i class="fa fa-envelope"/> <field name="user_email"/></li>
                                     <li t-if="record.user_mobile.value"><i class="fa fa-phone"/> <field name="user_mobile"/></li>
+                                    <li t-if="record.class_id.value" class="user_mobile">
+                                        <i class="fa fa-university" aria-hidden="true"></i><field name="class_id"/></li>
                                 </ul>
                             </div>
                         </div>

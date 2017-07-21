@@ -74,7 +74,7 @@
                             <button name="%(action_ws_training_list)d" type="action" icon="fa-hand-pointer-o"
                                     class="oe_stat_button">
                                 <div class="btnimg">
-                                    <span class="btnlabel">签到</span>
+                                    <span class="btnlabel">签到明细</span>
                                     <!--<i class="fa fa-hand-pointer-o" aria-hidden="true"></i>-->
                                     <!--<img src="/myapp/static/src/img/icons/icon.png" height="30px"/>-->
                                 </div>
