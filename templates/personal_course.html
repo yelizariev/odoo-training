@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>任务列表</title>
+    <link rel="stylesheet" href="/ws_training/static/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="/ws_training/static/framework7/css/framework7.ios.colors.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/ws_training/static/src/css/base.css">
+</head>
+<body>
+<div class="statusbar-overlay"></div>
+<div class="panel-overlay"></div>
+<div class="views">
+    <div class="view view-main page" data-page="contribution-list">
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="center">我的课程</div>
+                <div class="subnavbar">
+                    <div class="buttons-row">
+                        <a href="#tab1" class="button tab-link active">即将开始</a>
+                        <a href="#tab2" class="button tab-link">已结束</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pages navbar-through">
+            <div data-page="home" class="page">
+                <form class="searchbar searchbar-init" data-search-list=".list-block-search"
+                      data-search-in=".item-title" data-found=".searchbar-found" data-not-found=".searchbar-not-found"
+                      style="margin-top: 40px">
+                    <div class="searchbar-input">
+                        <input type="search" placeholder="查找">
+                        <a href="#" class="searchbar-clear"></a>
+                    </div>
+                    <a href="#" class="searchbar-cancel">取消</a>
+                </form>
+
+                <div class="page-content pull-to-refresh-content infinite-scroll" data-distance="1"
+                     style="padding-top: 40px">
+
+                    <div class="pull-to-refresh-layer" style="top: 30px;">
+                    </div>
+
+                    <div class="tabs">
+                        <div id="tab1" class="tab active">
+
+                            <div id="course-list-1" class="list-block media-list" style="margin-top: 88px">
+                                <div class="list-block-content list-block-search searchbar-found">
+                                    <ul>
+                                        {% for sup in data.not_started_course %}
+                                        <li class="swipeout">
+                                            <a href="#" class="item-link item-content" onclick="onView('{{sup.id}}')">
+                                                <div class="item-media"><i class="fa fa-tasks" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">{{sup.name}}</div>
+                                                        <div class="item-after">{{sup.time_start}}</div>
+                                                    </div>
+                                                    <div class="item-subtitle">讲师：{{sup.teacher_id[1]}}</div>
+                                                </div>
+                                            </a>
+                                            <div class="swipeout-actions-right">
+                                                <a href="#" onclick="onDelete( {{sup.name}})" class="swipeout-delete"
+                                                   data-confirm-title="删除?">删除</a>
+                                            </div>
+                                        </li>
+                                        {% endfor%}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div id="tab2" class="tab">
+                            <div id="course-list-2" class="list-block media-list" style="margin-top: 88px">
+                                <div class="list-block-content list-block-search searchbar-found">
+                                    <ul>
+                                        {% for sup in data.had_started_course %}
+                                        <li class="swipeout">
+                                            <a href="#" class="item-link item-content" onclick="onView('{{sup.id}}')">
+                                                <div class="item-media"><i class="fa fa-tasks" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">{{sup.name}}</div>
+                                                        <div class="item-after">{{sup.time_start}}</div>
+                                                    </div>
+                                                    <div class="item-subtitle">讲师：{{sup.teacher_id[1]}}</div>
+                                                </div>
+                                            </a>
+                                            <div class="swipeout-actions-right">
+                                                <a href="#" onclick="onDelete( {{sup.name}})" class="swipeout-delete"
+                                                   data-confirm-title="删除?">删除</a>
+                                            </div>
+                                        </li>
+                                        {% endfor%}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/framework7.js"></script>
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/odoo.js"></script>
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/local_storage.js"></script>
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/app.js"></script>
+<script type="text/javascript" src="/ws_training/static/src/js/app.js"></script>
+<script type="text/javascript" src="/ws_training/static/base64/base64.min.js"></script>
+<script type="text/javascript" src="/ws_training/static/src/js/attend_course.js"></script>
+</body>
+</html>

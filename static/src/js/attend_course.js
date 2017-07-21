@@ -169,20 +169,25 @@ $('.infinite-scroll').on('infinite', function () {
  * @作者 夏雨
  * @日期 2017-06-05
  */
-function onSubmit(user_id, course_id) {
+ function onSubmit(course_id) {
+         var startTimestamp = getCookie('startTimestamp')
+         $.ajax({
+             type: 'post',
+             data: {
+                 user_id: getCookie('user_id'),
+                 course_id: course_id,
+                 timestamp: startTimestamp
+             },
+             url: 'http://10.20.113.90:8069/w/a',
+             success: function(msg) {
+                 if (msg === '已过期') {
+                     window.location.href = 'http://10.20.113.90:8069/w/qrcode_html'
+                 }
 
-        $.ajax({
-            type: 'post',
-            data: {
-                user_id: user_id,
-                course_id: course_id
-            },
-            url: '/w/a',
-            success: function(msg) {
-                alert(msg)
-            }
-        })
-}
+                 alert(msg)
+             }
+         });
+ }
 
 
 function onBack() {
@@ -232,6 +237,29 @@ function onDelete(task_id) {
         myApp.alert("当前单据未保存， 不能删除！", "提示");
         return;
     }
+}
+
+function onLogin(username, password) {
+
+    var startTimestamp = window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
+    $.ajax({
+        type: 'post',
+        data: {
+            username: username,
+            password: password
+        },
+        url: '/w/login',
+        success: function(data) {
+            var jsonResult = JSON.parse(data)
+            alert(jsonResult.msg)
+            if (jsonResult.login_success) {
+                setCookie('user_id', jsonResult.user_id)
+                setCookie('startTimestamp', startTimestamp)
+                window.location.href = 'http://10.20.113.90:8069/ws_training/guide'
+            }
+        }
+    })
+
 }
 
 init();

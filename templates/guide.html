@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>任务列表</title>
+    <link rel="stylesheet" href="/ws_training/static/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="/ws_training/static/framework7/css/framework7.ios.colors.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/ws_training/static/src/css/base.css">
+</head>
+<body>
+<div class="statusbar-overlay"></div>
+<!-- Views -->
+<div class="views">
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+        <div class="pages navbar-through toolbar-through">
+            <div data-page="index" class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="center">功能选项</div>
+                    </div>
+                </div>
+                <button href="#" onclick="onTransfer(1)">
+                    <div class="card" style="margin-top: 68px">
+                        <div class="card-header">签到功能</div>
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                签到部分
+                            </div>
+                        </div>
+                    </div>
+                </button>
+
+
+                <button herf="#" class="card" onclick="onTransfer(2)">
+                    <div class="card-header">我的课表</div>
+                    <div class="card-content">
+                        <div class="card-content-inner">
+                            评论部分
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/framework7.js"></script>
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/odoo.js"></script>
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/local_storage.js"></script>
+<script type="text/javascript" src="/ws_training/static/ws_framework7/js/app.js"></script>
+<script type="text/javascript" src="/ws_training/static/src/js/app.js"></script>
+<script type="text/javascript" src="/ws_training/static/base64/base64.min.js"></script>
+<script type="text/javascript" src="/ws_training/static/src/js/guide.js"></script>
+<script type="text/javascript" src="/ws_training/static/src/js/ws_pos_login.js"></script>
+</body>
+</html>

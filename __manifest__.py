@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'WENS Training03',
+    'name': 'WENS Training',
     'version': '1.0',
     'author': 'Shengli Hu',
     'summary': u'温氏培训',

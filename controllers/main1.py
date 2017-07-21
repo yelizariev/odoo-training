@@ -1,48 +1,16 @@
-# # -*- coding: utf-8 -*-
-#
-# import logging
-# import os
-# import sys
-# from jinja2 import Environment, FileSystemLoader
-# from odoo import http
-#
-# reload(sys)
-# sys.setdefaultencoding('utf8')
-#
-# logger = logging.getLogger(__name__)
-#
-# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-# templateLoader = FileSystemLoader(searchpath=BASE_DIR + "/templates")
-# env = Environment(loader=templateLoader)
-#
-#
-# class MainController(http.Controller):
-#     # 系统主界面
-#     @http.route('/ws_training/index', type='http', auth='public', csrf=False)
-#     def index(self, **kwargs):
-#         course_model = http.request.env['ws.training.course']
-#         course_list = course_model.sudo().search([])
-#         data_list = []
-#         for obj in course_list:
-#             data_list.append({'teacher': obj.teacher_id.name,
-#                               'course': obj.name})
-#             print data_list
-#         template = env.get_template("index.html")
-#         return template.render(data=data_list)
-
 # -*- coding: utf-8 -*-
 
 import logging
+import cStringIO
+import qrcode
 import os
 import sys
 import time
+import json
 from jinja2 import Environment, FileSystemLoader
 from odoo import http
-from odoo.http import request
+from odoo.http import request, Response
 import datetime
-import qrcode
-import cStringIO
-import json
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -55,6 +23,19 @@ env = Environment(loader=templateLoader)
 
 
 class MainController(http.Controller):
+    # # 系统主界面
+    # @http.route('/ws_training/index', type='http', auth='public', csrf=False)
+    # def index(self, **kwargs):
+    #     course_model = http.request.env['ws.training.course']
+    #     course_list = course_model.sudo().search([])
+    #     data_list = []
+    #     for obj in course_list:
+    #         data_list.append({'teacher': obj.teacher_id.name,
+    #                           'course': obj.name})
+    #         print data_list
+    #     template = env.get_template("index.html")
+    #     return template.render(data=data_list)
+
     # 展示二维码的页面
     @http.route('/w/qrcode_html', type='http', auth='public', csrf=False)
     def qrcode_html(self, **kwargs):
@@ -62,48 +43,21 @@ class MainController(http.Controller):
         return qrcode_page.render()
 
     @http.route('/ws_training/guide', type='http', auth='public', csrf=False)
-    def guide_list_1(self, **post):
+    def guide_list(self, **post):
         template_list = env.get_template("guide.html")
         data = {
         }
         html = template_list.render(data=data)
         return html
 
-    # 生成二维码，每个二维码都有个有效期
-    @http.route('/w/q', type='http', auth='public', csrf=False)
-    def get_qrcode(self, **kwargs):
-        qrcode_page = env.get_template("qrcode.html")
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
-        )
-        qr.add_data('http://10.20.113.90:8069/ws_training/log?timestamp=' + str(time.time()))
-        qr.make(fit=True)
-        img = qr.make_image()
-        headers = [('Content-Type', 'image/png')]
-        buffer = cStringIO.StringIO()
-        img.save(buffer)
-        img_buffer = buffer.getvalue()
-        headers.append(('Content-Length', str(len(img_buffer))))
-        response = request.make_response(img_buffer, headers)
-        return response
+    # 登录页面
+    @http.route('/ws_training/log', type='http', auth='public', csrf=False)
+    def sign_in(self, **post):
+        template_list = env.get_template("attend_sign_in.html")
+        html = template_list.render()
+        return html
 
-
-    # 系统主界面
-    @http.route('/ws_training/index', type='http', auth='public', csrf=False)
-    def index_1(self, **kwargs):
-        course_model = http.request.env['ws.training.course']
-        course_list = course_model.sudo().search([])
-        data_list = []
-        for obj in course_list:
-            data_list.append({'teacher': obj.teacher_id.name,
-                              'course': obj.name})
-            print data_list
-        template = env.get_template("index.html")
-        return template.render(data=data_list)
-
+    # 课程列表页面
     @http.route('/ws_training/list', type='http', auth='public', csrf=False)
     def list(self, **post):
         template_list = env.get_template("attend_school_list.html")
@@ -122,40 +76,7 @@ class MainController(http.Controller):
         html = template_list.render(data=data)
         return html
 
-    # 我的课程页面：已开课，未开课
-    @http.route('/ws_training/person', type='http', auth='public', csrf=False)
-    def person_list(self, **kwargs):
-        template_list = env.get_template("personal_course.html")
-        user_id = kwargs.get('user_id')
-        course_model = request.env['ws.training.course'].sudo()
-        course_list = request.env['ws.training.class.users'].sudo().search_read([('user_id', '=', user_id)],
-                                                                                ['course_id'])
-        detail_course_list = []
-        # 从课程表获得详细的课程信息
-        for course in course_list:
-            detail_course_list.append(course_model.search('id', '=', course[0]))
-        had_started_course = []
-        not_started_course = []
-        # 获得未开课以及已开课的list
-        for detail_course_item in detail_course_list:
-            course_start_time = datetime.datetime.strptime(detail_course_item['time_start'], '%Y-%m-%d %H:%M:%S')
-            if course_start_time > datetime.datetime.now():
-                not_started_course.append(detail_course_item)
-            else:
-                had_started_course.append(detail_course_item)
-        data = {'had_started_course': had_started_course,
-                'not_started_course': not_started_course}
-        html = template_list.render(data=data)
-        return html
-
-    @http.route('/ws_training/guide', type='http', auth='public', csrf=False)
-    def guide_list(self, **post):
-        template_list = env.get_template("guide.html")
-        data = {
-        }
-        html = template_list.render(data=data)
-        return html
-
+    # 课程详情页面
     @http.route('/ws_training/body', type='http', auth='public')
     def mobile_task_body(self, **post):
         template_list = env.get_template("course_detil.html")
@@ -200,7 +121,7 @@ class MainController(http.Controller):
         course_id = kwargs.get('course_id')
         try:
             record_count = course_model.sudo().search_count(
-                [('user_id', '=', int(user_id)), ('course_id', '=', int(course_id))])
+                [('user_id', '=', user_id), ('course_id', '=', course_id)])
             if record_count < 1:
                 vals = {
                     'user_id': user_id,
@@ -214,12 +135,26 @@ class MainController(http.Controller):
             return http.Response('登记失败', 500)
         return http.Response('您已登记', 200)
 
-    # 登录页面
-    @http.route('/ws_training/log', type='http', auth='public', csrf=False)
-    def sign_in(self, **post):
-        template_list = env.get_template("attend_sign_in.html")
-        html = template_list.render()
-        return html
+    # 生成二维码，每个二维码都有个有效期
+    @http.route('/w/q', type='http', auth='public', csrf=False)
+    def get_qrcode(self, **kwargs):
+        qrcode_page = env.get_template("qrcode.html")
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data('http://10.20.113.107:8069/ws_training/log?timestamp=' + str(time.time()))
+        qr.make(fit=True)
+        img = qr.make_image()
+        headers = [('Content-Type', 'image/png')]
+        buffer = cStringIO.StringIO()
+        img.save(buffer)
+        img_buffer = buffer.getvalue()
+        headers.append(('Content-Length', str(len(img_buffer))))
+        response = request.make_response(img_buffer, headers)
+        return response
 
     # 登录接口
     @http.route('/w/login', type='http', auth='public', csrf=False)
@@ -239,4 +174,67 @@ class MainController(http.Controller):
             response['msg'] = '登录成功'
             response['user_id'] = user_model.search([('login', '=', username), ('password', '=', password)])[0].id
             response['login_success'] = True
-        return http.Response(json.dumps(response), status=200)
+        return Response(json.dumps(response), status=200)
+
+    # 我的课程页面：已开课，未开课
+    @http.route('/ws_training/person', type='http', auth='public', csrf=False)
+    def list(self, **kwargs):
+        template_list = env.get_template("personal_course.html")
+        user_id = kwargs.get('user_id')
+        course_model = request.env['ws.training.course'].sudo()
+        course_list = request.env['ws.training.class.users'].sudo().search_read([('user_id', '=', user_id)],
+                                                                                ['course_id'])
+        detail_course_list = []
+        # 从课程表获得详细的课程信息
+        for course in course_list:
+            detail_course_list.append(course_model.search('id', '=', course[0]))
+        had_started_course = []
+        not_started_course = []
+        # 获得未开课以及已开课的list
+        for detail_course_item in detail_course_list:
+            course_start_time = datetime.datetime.strptime(detail_course_item['time_start'], '%Y-%m-%d %H:%M:%S')
+            if course_start_time > datetime.datetime.now():
+                not_started_course.append(detail_course_item)
+            else:
+                had_started_course.append(detail_course_item)
+        data = {'had_started_course': had_started_course,
+                'not_started_course': not_started_course}
+        html = template_list.render(data=data)
+        return html
+
+    # 课程基本信息，签到情况，评论
+    @http.route('/ws_training/person', type='http', auth='public', csrf=False)
+    def list(self, **kwargs):
+        course_id = kwargs.get('course_id', 1)
+        user_id = kwargs.get('user_id', 1)
+        comment_model = request.env['ws.training.course.comment'].sudo()
+        course_detail = request.env['ws.training.attend'].sudo().search_read([('id', '=', course_id)],
+                                                                             ['name', 'time_start', 'teacher_id',
+                                                                              'id'])[0]
+        attend_detail = request.env['ws.training.course'].sudo().search_read([('user_id', '=', user_id),
+                                                                              ('course_id', '=', course_id)],
+                                                                             ['singe_state'])[0]
+        # 从课程表获得详细的课程信息
+        #html = template_list.render(data=data)
+        return ''
+
+    # 修改评论
+    @http.route('/ws_training/person', type='http', auth='public', csrf=False)
+    def list(self, **kwargs):
+        course_id = kwargs.get('course_id', 1)
+        user_id = kwargs.get('user_id', 1)
+        comment = kwargs.get('comment', '默认好评')
+        vals = {
+            'name': user_id,
+            'course_id': course_id,
+            'student_comment': comment
+        }
+        comment_model = request.env['ws.training.course.comment'].sudo()
+        comment_count = comment_model.search_count([('user_id', '=', user_id), ('course_id', '=', course_id)])
+        if comment_count > 0:
+            comment_model.write(vals=vals)
+            return Response('新增评论成功', 200)
+        elif comment_count == 0:
+            comment_model.create(vals=vals)
+            return Response('更新评论成功', 200)
+        return Response('更新评论异常', 200)
