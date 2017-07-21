@@ -51,11 +51,11 @@
                   sequence="10"
                   action="action_ws_training_class_comment_list"
                   />
-        <menuitem name="培训签到统计分析"
-                  id="menu_ws_training_report"
+        #@作者：cky
+        <menuitem name="培训出勤统计分析"
+                  id="menu_ws_traininglate_report"
                   parent="menu_training_mgr"
                   sequence="30"
-                  action="action_report_ws_training_all"
+                  action="action_report_ws_traininglate_all"
                 />
-    </data>
 </odoo>

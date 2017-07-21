@@ -11,18 +11,18 @@
     'category': 'WENS',
     'website': 'http://wmp.wens.com.cn',
     'images': [],
-    'depends': ['base'],
+    'depends': [],
     'data': [
         'views/view_training_attend.xml',
         'views/view_training_course.xml',
-        'views/rpt_view_ws_training.xml',
         'views/view_training_class.xml',
         'views/view_training_class_users.xml',
         'views/view_training_comment.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
-        'views/menus.xml',
+        'views/rpt_view_ws_traininglate.xml',
+        'views/menus.xml'
     ],
     'demo': [
 

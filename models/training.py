@@ -3,9 +3,6 @@
 # WENS FOOD STUFF GROUP Corp.
 # Copyright (C) 2014-2020 WENS FOOD GROUP (<http://www.wens.com.cn>).
 # Authored by Shengli Hu <hushengli@gmail.com>
-import logging
-
-from odoo import models, fields, api
 from odoo import tools, _
 from odoo.modules.module import get_module_resource
 
@@ -21,7 +18,19 @@ from odoo.modules.module import get_module_resource
 #     _sql_constraints = [
 #         ('name_uniq', 'unique (name)', "Tag name already exists !"),
 #     ]
+from odoo import models, fields, api
+import logging
+import os
+from odoo.http import request
+from jinja2 import Environment, FileSystemLoader
+import datetime
+logger = logging.getLogger(__name__)
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+templateLoader = FileSystemLoader(searchpath=BASE_DIR + "/templates")
+env = Environment(loader=templateLoader)
+
+######@作者：cky
 class ws_training_attend(models.Model):
     _name = 'ws.training.attend'
     _description = u'培训签到表'
@@ -29,22 +38,40 @@ class ws_training_attend(models.Model):
     user_id = fields.Many2one('res.users', string=u'学员', required=True)
     course_id = fields.Many2one('ws.training.course', string=u'课程', required=True)
     attend_time = fields.Datetime(string=u'签到时间', required=True, help=u'签到时间')
-    description = fields.Text(string=u'备注')
+    state = fields.Text(string=u'备注')
+    singe_state = fields.Selection([('belate', u'迟到'), ('absenteeism', u'缺勤'), (' normal', u'正常')], string=u'签到')
 
-    #@api.model
-    #def search(self, args, offset=0, limit=None, order=None, count=False):
-    #    context = self._context or {}
-        #import time
-        #time.sleep(1)
-    #    return super(ws_training_attend, self).search(args, offset, limit, order, count=count)
+    @api.multi
+    @api.onchange('attend_time')
+    def time_singe(self):
+        """
+        :return: 
+        """
+        source_course = self.env['ws.training.course']
+        for o in self:
+            if o.course_id.id:
+                course_obj = source_course.browse(o.course_id.id)
+                if course_obj.time_end < o.attend_time:
+                    o.singe_state = 'absenteeism'
+                elif course_obj.time_start > o.attend_time:
+                   o.singe_state = 'belate'
+                else:
+                    o.singe_state = 'normal'
 
-    #@api.multi
-    #def write(self, vals):
-    #    context = self._context or {}
-    #    print vals
-    #    vals['description']='hello overwrote!'
-    #    return super(ws_training_attend, self).write(vals)
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        context = self._context or {}
+        return super(ws_training_attend, self).search(args, offset, limit, order, count=count)
 
+    @api.multi
+    def write(self, vals):
+        context = self._context or {}
+        return super(ws_training_attend, self).write(vals)
+
+    @api.model
+    def create(self, vals):
+
+        return super(ws_training_attend, self).create(vals)
     # @api.model
     # def create(self, args, offset=0, limit=None, order=None, count=False):
     #     context = self._context or {}
@@ -58,7 +85,7 @@ class ws_training_attend(models.Model):
     #     import time
     #     time.sleep(15)
     #     return super(ws_training_attend, self).search(args, offset, limit, order, count=count)
-
+############
 class ws_training_course(models.Model):
     _name = 'ws.training.course'
     _description = u'培训课程'

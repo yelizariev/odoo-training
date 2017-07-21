@@ -9,7 +9,8 @@
                     <field name="user_id"/>
                     <field name="course_id"/>
                     <field name="attend_time"/>
-                    <field name="description"/>
+                    <field name="state" />
+                    <field name="singe_state"/>
                 </tree>
             </field>
         </record>
@@ -21,10 +22,11 @@
                 <form string="培训签到">
                     <sheet>
                         <group>
-                                <field name="user_id"/>
-                                <field name="course_id"/>
-                                <field name="attend_time"/>
-                                <field name="description"/>
+                            <field name="user_id"/>
+                            <field name="course_id"/>
+                            <field name="attend_time"/>
+                            <field name="state" />
+                            <field name="singe_state"/>
                         </group>
                     </sheet>
                 </form>
