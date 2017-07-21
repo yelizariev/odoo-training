@@ -22,7 +22,7 @@
 }
 
 .course_image {
-    margin: 20px;
+    margin: 18px;
     margin-bottom: 0;
     width:150px;
 }
@@ -32,7 +32,7 @@
 }
 
 .oe_title {
-    margin-left: 100px;
+    margin-left: 120px;
 }
 
 .username {
@@ -46,7 +46,12 @@
     width: 100%;
 }
 
-.distablecell {
-    width: 50%;
+.distablecell1 {
+    width: 60%;
+    display: table-cell;
+}
+
+.distablecell2 {
+    width: 40%;
     display: table-cell;
 }
