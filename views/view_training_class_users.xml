@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ws_training_class_users_list" model="ir.ui.view">
+            <field name="name">班级学员列表</field>
+            <field name="model">ws.training.class.users</field>
+            <field name="arch" type="xml">
+                <tree string="班级学员列表">
+                    <field name="class_id"/>
+                    <field name="user_id"/>
+                    <field name="course_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ws_training_class_users_form" model="ir.ui.view">
+            <field name="name">班级学员详情</field>
+            <field name="model">ws.training.class.users</field>
+            <field name="arch" type="xml">
+                <form string="班级学员">
+                    <sheet>
+                        <group>
+                            <field name="class_id"/>
+                            <field name="user_id"/>
+                            <field name="course_id">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="time_start"/>
+                                    <field name="teacher_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--################
+        @作者：凌嘉文
+        ##################-->
+        <record id="ws_training_class_users_kankan" model="ir.ui.view">
+            <field name="name">ws.training.class.users.kanban</field>
+            <field name="model">ws.training.class.users</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="class_id"/>
+                    <field name="user_id"/>
+                    <field name="user_email"/>
+                    <field name="user_mobile"/>
+                    <field name="user_address"/>
+                    <field name="user_image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <!--<field name="category_ids"/>-->
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('ws.training.class.users', 'user_image', record.id.value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="user_id"/>
+                                </strong>
+                                <ul>
+                                    <li id="last_login"/>
+                                    <li t-if="record.class_id.value"><field name="class_id"/></li>
+                                    <li t-if="record.user_address.value"><field name="user_address"/></li>
+                                    <li t-if="record.user_email.value"><i class="fa fa-envelope"/> <field name="user_email"/></li>
+                                    <li t-if="record.user_mobile.value"><i class="fa fa-phone"/> <field name="user_mobile"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!--
+        ########
+        -->
+        <record id="action_ws_training_class_users_list" model="ir.actions.act_window">
+            <field name="name">班级学员</field>
+            <field name="res_model">ws.training.class.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="ws_training_class_users_list"/>
+            <field name="help" type="html">
+                <p oe="oe_view_nocontent_create">
+                    班级学员填写
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

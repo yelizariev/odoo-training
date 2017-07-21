@@ -1,0 +1,13 @@
+.teacher {
+    display: block;
+    float:right;
+}
+
+.btnimg {
+    display: inline-block;
+    margin: 5px;
+}
+
+.btnlabel {
+    font-size: 15px;
+}

@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <template id="ws_training_course_backend" name="ws_training_course_css" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/ws_training/static/src/css/view_training_course.css"/>
+                <!--<script type="text/JavaScript" src="/you_module_name/static/src/js/you_module_name.js"></script>-->
+            </xpath>
+        </template>
 
-
-
-
+        <record id="ws_training_course_kankan" model="ir.ui.view">
+            <field name="name">ws_training_course_list.kanban</field>
+            <field name="model">ws.training.course</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="time_start"/>
+                    <field name="time_end"/>
+                    <field name="teacher_id"/>
+                    <field name="description"/>
+                    <field name="image_course"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('ws.training.course', 'image_course', record.id.value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <label><i class="fa fa-graduation-cap" aria-hidden="true"></i>课程名称：<field name="name"/></label>
+                                    </strong>
+                                    <div name="tags"/>
+                                    <ul>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i>开始时间: <field name="time_start"/></li>
+                                        <li><i class="fa fa-times" aria-hidden="true"></i>结束时间: <field name="time_end"/></li>
+                                    </ul>
+                                    <div name="tags"/>
+                                    <div class="teacher">
+                                        <p>
+                                        <i class="fa fa-male" aria-hidden="true"><field name="teacher_id"/></i>
+                                        </p>
+                                    </div>
+                                    <div name="tags"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
         <record id="ws_training_course_list" model="ir.ui.view">
             <field name="name">培训课程列表</field>
@@ -16,6 +59,7 @@
                     <field name="time_end"/>
                     <field name="teacher_id"/>
                     <field name="description"/>
+                    <field name="comment_to_teacher"/>
                 </tree>
             </field>
         </record>
@@ -26,13 +70,43 @@
             <field name="arch" type="xml">
                 <form string="培训课程">
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(action_ws_training_list)d" type="action" icon="fa-hand-pointer-o"
+                                    class="oe_stat_button">
+                                <div class="btnimg">
+                                    <span class="btnlabel">签到</span>
+                                    <!--<i class="fa fa-hand-pointer-o" aria-hidden="true"></i>-->
+                                    <!--<img src="/myapp/static/src/img/icons/icon.png" height="30px"/>-->
+                                </div>
+                            </button>
+                        </div>
+                        <field name="image_course" widget="image"/>
                         <group>
-                            <field name="name"/>
-                            <field name="time_start"/>
-                            <field name="time_end"/>
-                            <field name="teacher_id"/>
-                            <field name="description"/>
+                            <group string="基本信息">
+                                <field name="name"/>
+                                <field name="teacher_id"/>
+                            </group>
+                            <group string="时间">
+                                <field name="time_start"/>
+                                <field name="time_end"/>
+                            </group>
                         </group>
+                        <notebook>
+                            <page string="课程简介">
+                                <field name="description"/>
+                            </page>
+                            <page string="学员信息">
+                                <field name="course_user_id">
+                                    <tree>
+                                        <field name="class_id"/>
+                                        <field name="user_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="对老师的评价">
+                                <field name="comment_to_teacher"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -42,7 +116,7 @@
             <field name="name">培训课程</field>
             <field name="res_model">ws.training.course</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,form</field>
             <field name="view_id" ref="ws_training_course_list"/>
             <field name="help" type="html">
                 <p>

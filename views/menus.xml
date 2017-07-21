@@ -1,13 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <menuitem name="培训管理"
                   id="menu_ws_training_root"
                   sequence="20"/>
 
+        <menuitem name="班级管理"
+                  id="menu_training_mgclass"
+                  parent="menu_ws_training_root"
+                  sequence="10"
+                />
+
+        <menuitem name="班级"
+                  id="menu_training_class"
+                  parent="menu_training_mgclass"
+                  sequence="10"
+                  action="action_ws_training_class_list"
+                />
+
+        <menuitem name="班级学员"
+                  id="menu_training_class_users"
+                  parent="menu_training_mgclass"
+                  sequence="20"
+                  action="action_ws_training_class_users_list"
+                />
+
         <menuitem name="培训"
                   id="menu_training_mgr"
                   parent="menu_ws_training_root"
-                  sequence="10"
+                  sequence="20"
                 />
 
         <menuitem name="培训签到"
@@ -23,7 +44,14 @@
                   sequence="20"
                   action="action_ws_training_course_list"
                 />
-         <menuitem name="培训签到统计分析"
+
+        <menuitem name="评论"
+                  id="menu_ws_training_comment"
+                  parent="menu_ws_training_root"
+                  sequence="10"
+                  action="action_ws_training_class_comment_list"
+                  />
+        <menuitem name="培训签到统计分析"
                   id="menu_ws_training_report"
                   parent="menu_training_mgr"
                   sequence="30"

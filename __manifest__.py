@@ -16,8 +16,10 @@
         'views/view_training_attend.xml',
         'views/view_training_course.xml',
         'views/rpt_view_ws_training.xml',
+        'views/view_training_class.xml',
+        'views/view_training_class_users.xml',
+        'views/view_training_comment.xml',
         'views/menus.xml',
-
     ],
     'demo': [
 

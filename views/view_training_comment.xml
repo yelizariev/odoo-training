@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ws_training_class_comment_list" model="ir.ui.view">
+            <field name="name">评价</field>
+            <field name="model">ws.training.course.comment</field>
+            <field name="arch" type="xml">
+                <tree string="课程评论">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="student_comment"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ws_training_class_comment_form" model="ir.ui.view">
+            <field name="name">评价</field>
+            <field name="model">ws.training.course.comment</field>
+            <field name="arch" type="xml">
+                <form string="班级学员">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="course_id"/>
+                            <field name="student_comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ws_training_class_comment_list" model="ir.actions.act_window">
+            <field name="name">评价</field>
+            <field name="res_model">ws.training.course.comment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="ws_training_class_comment_list"/>
+            <field name="help" type="html">
+                <p oe="oe_view_nocontent_create">
+                    创建第一个评论
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
