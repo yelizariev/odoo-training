@@ -26,20 +26,30 @@
                 <form string="班级学员">
                     <sheet>
                         <group>
-                            <field name="class_id"/>
-                            <field name="user_id"/>
-                            <field name="course_id">
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="time_start"/>
-                                    <field name="teacher_id"/>
-                                </tree>
-                            </field>
-                            <field name="user_email"/>
-                            <field name="user_mobile"/>
-                            <field name="user_address"/>
-                            <field name="user_image"/>
+                            <field name="user_image" widget="image"/>
                         </group>
+                        <group>
+                            <group string="基本信息">
+                                <field name="class_id"/>
+                                <field name="user_id"/>
+                            </group>
+                            <group string="联系方式">
+                                <field name="user_email"/>
+                                <field name="user_mobile"/>
+                                <field name="user_address"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="课程信息">
+                                <field name="course_id">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="time_start"/>
+                                        <field name="teacher_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -76,10 +86,10 @@
                                     <li t-if="record.user_address.value"><field name="user_address"/></li>
                                     <li t-if="record.user_email.value"><i class="fa fa-envelope"/> <field name="user_email"/></li>
                                     <li t-if="record.user_mobile.value"><i class="fa fa-phone"/> <field name="user_mobile"/></li>
-                                    <li t-if="record.class_id.value" class="user_mobile">
-                                        <i class="fa fa-university" aria-hidden="true"></i><field name="class_id"/></li>
                                 </ul>
                             </div>
+                            <div t-if="record.class_id.value" class="user_mobile">
+                                        <i class="fa fa-university" aria-hidden="true"></i><field name="class_id"/></div>
                         </div>
                         </t>
                     </templates>

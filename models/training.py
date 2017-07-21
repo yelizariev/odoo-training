@@ -17,19 +17,19 @@ class ws_training_attend(models.Model):
     attend_time = fields.Datetime(string=u'签到时间', required=True, help=u'签到时间')
     description = fields.Text(string=u'备注')
 
-    @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
-        context = self._context or {}
-        import time
-        time.sleep(1)
-        return super(ws_training_attend, self).search(args, offset, limit, order, count=count)
+    #@api.model
+    #def search(self, args, offset=0, limit=None, order=None, count=False):
+    #    context = self._context or {}
+        #import time
+        #time.sleep(1)
+    #    return super(ws_training_attend, self).search(args, offset, limit, order, count=count)
 
-    @api.multi
-    def write(self, vals):
-        context = self._context or {}
-        print vals
-        vals['description']='hello overwrote!'
-        return super(ws_training_attend, self).write(vals)
+    #@api.multi
+    #def write(self, vals):
+    #    context = self._context or {}
+    #    print vals
+    #    vals['description']='hello overwrote!'
+    #    return super(ws_training_attend, self).write(vals)
 
     # @api.model
     # def create(self, args, offset=0, limit=None, order=None, count=False):
