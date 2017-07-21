@@ -58,4 +58,5 @@
                   sequence="30"
                   action="action_report_ws_traininglate_all"
                 />
+    </data>
 </odoo>

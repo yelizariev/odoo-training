@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'WENS Training',
+    'name': 'WENS Training03',
     'version': '1.0',
     'author': 'Shengli Hu',
     'summary': u'温氏培训',
@@ -11,7 +11,7 @@
     'category': 'WENS',
     'website': 'http://wmp.wens.com.cn',
     'images': [],
-    'depends': [],
+    'depends': ['base'],
     'data': [
         'views/view_training_attend.xml',
         'views/view_training_course.xml',
@@ -22,7 +22,7 @@
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
         'views/rpt_view_ws_traininglate.xml',
-        'views/menus.xml'
+        'views/menus.xml',
     ],
     'demo': [
 

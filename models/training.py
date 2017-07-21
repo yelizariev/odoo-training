@@ -3,33 +3,15 @@
 # WENS FOOD STUFF GROUP Corp.
 # Copyright (C) 2014-2020 WENS FOOD GROUP (<http://www.wens.com.cn>).
 # Authored by Shengli Hu <hushengli@gmail.com>
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# WENS FOOD STUFF GROUP Corp.
+# Copyright (C) 2014-2020 WENS FOOD GROUP (<http://www.wens.com.cn>).
+# Authored by Shengli Hu <hushengli@gmail.com>
+
+from odoo import models, fields, api
 from odoo import tools, _
 from odoo.modules.module import get_module_resource
-
-# class EmployeeCategory(models.Model):
-#
-#     _name = "hr.employee.category"
-#     _description = "Employee Category"
-#
-#     name = fields.Char(string="Employee Tag", required=True)
-#     color = fields.Integer(string='Color Index')
-#     employee_ids = fields.Many2many('hr.employee', 'employee_category_rel', 'category_id', 'emp_id', string='Employees')
-#
-#     _sql_constraints = [
-#         ('name_uniq', 'unique (name)', "Tag name already exists !"),
-#     ]
-from odoo import models, fields, api
-import logging
-import os
-from odoo.http import request
-from jinja2 import Environment, FileSystemLoader
-import datetime
-logger = logging.getLogger(__name__)
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-templateLoader = FileSystemLoader(searchpath=BASE_DIR + "/templates")
-env = Environment(loader=templateLoader)
-
 ######@作者：cky
 class ws_training_attend(models.Model):
     _name = 'ws.training.attend'
@@ -86,6 +68,20 @@ class ws_training_attend(models.Model):
     #     time.sleep(15)
     #     return super(ws_training_attend, self).search(args, offset, limit, order, count=count)
 ############
+
+# class EmployeeCategory(models.Model):
+#
+#     _name = "hr.employee.category"
+#     _description = "Employee Category"
+#
+#     name = fields.Char(string="Employee Tag", required=True)
+#     color = fields.Integer(string='Color Index')
+#     employee_ids = fields.Many2many('hr.employee', 'employee_category_rel', 'category_id', 'emp_id', string='Employees')
+#
+#     _sql_constraints = [
+#         ('name_uniq', 'unique (name)', "Tag name already exists !"),
+#     ]
+
 class ws_training_course(models.Model):
     _name = 'ws.training.course'
     _description = u'培训课程'
@@ -134,7 +130,6 @@ class ws_training_class_users(models.Model):
     user_email = fields.Char(string="邮箱")
     user_mobile = fields.Char(string="手机")
     user_address = fields.Char(string="地址")
-
     user_image = fields.Binary("Photo", default=_default_image, attachment=True,
                           help="This field holds the image used as photo for the employee, limited to 1024x1024px.")
     image_medium = fields.Binary("Medium-sized photo", attachment=True,

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="ws_training_list_search" model="ir.ui.view">
+            <field name="name">培训签到搜索</field>
+            <field name="model">ws.training.attend</field>
+            <field name="arch" type="xml">
+                <search string="培训签到搜索">
+                    <filter name='is_mine' string="我的签到记录" domain="[('user_id','='，user.id)]"/>
+                    <separator/>
+                    <field name="user_id"/>
+                    <field name="course_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_user" string="学员" context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="ws_training_list" model="ir.ui.view">
             <field name="name">培训签到列表</field>
             <field name="model">ws.training.attend</field>
@@ -38,6 +54,8 @@
             <field name="res_model">ws.training.attend</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="ws_training_list_search"/>
+            <field name="context">{"search_default_group_by_user":1}</field>
             <field name="view_id" ref="ws_training_list"/>
             <field name="help" type="html">
                 <p>
